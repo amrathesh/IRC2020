@@ -18,8 +18,8 @@
             /*margin: 0 auto;*/
             position: relative;
             border: 5px solid rgb(255, 255, 255);
-            top: 33%;
-            left: 4%;
+            top: 20%;
+            left: 1%;
         }
 
         #compass span {
@@ -117,8 +117,8 @@
         #battery {
             position: absolute;
             color: white;
-            bottom: 0%;
-            left: 2%;
+            top: 0%;
+            right: 10%;
             font-family: sans-serif;
             font-size: 75%;
         }
@@ -140,27 +140,22 @@
         #map {
             display: inline-block;
             position: absolute;
-            right: 2%;
-            width: 31%;
-            height: 34%;
-            top: 10%;
+            left: 1%;
+            width: 20%;
+            height: 40%;
+            bottom: 5%;
             }
 
-        #map-img {
-            border: 5px solid #ffffff;
-            max-height: 100%;
-            max-width: 100%;
-        }
-        #wrapper {
-            display: inline-block;
+        iframe {
+            name: "Task frame";
             position: absolute;
-            right: 2%;
-            width: 31%;
-            height: 34%;
-            top: 10%;
-        }
+            height: 70%;
+            width: 60%;
+            left: 23%;
+            bottom: 10%;
+            }
 
-        .btn {
+        .kill-btn {
             border: 6px solid #e21919;
             background-color: #e219196b;
             color: white;
@@ -168,8 +163,44 @@
             font-size: 32px;
             cursor: pointer;
             position: absolute;
-            right: 12%;
-            top: 59%;
+            right: 3%;
+            bottom: 10%;
+            z-index: 10;
+        }
+        .retrieval-btn {
+            border: 6px solid #999;
+            background-color: #676767;
+            color: white;
+            padding: 12px 44px;
+            font-size: 32px;
+            cursor: pointer;
+            position: absolute;
+            left: 17%;
+            top: 5%;
+            z-index: 10;
+        }
+        .science-btn {
+            border: 6px solid #113a0c;
+            background-color: #19b3257a;
+            color: white;
+            padding: 12px 44px;
+            font-size: 32px;
+            cursor: pointer;
+            position: absolute;
+            left: 45%;
+            top: 5%;
+            z-index: 10;
+        }
+        .autonomous-btn {
+            border: 6px solid #1648a5;
+            background-color: #0464a96b;
+            color: white;
+            padding: 12px 44px;
+            font-size: 32px;
+            cursor: pointer;
+            position: absolute;
+            left: 65%;
+            top: 5%;
             z-index: 10;
         }
     </style>
@@ -190,6 +221,8 @@
         <p>Network status : <br><span id = "ping_status"></span></p>
     </div>
 
+    <iframe id="task_frame"></iframe>
+
     <script>
         var battery,angle=180;
         var gps = {lat: 12.9238287, lng: 77.500057};
@@ -209,7 +242,7 @@
                    gps.lng = data['location']['long'];
                 }
             };
-            xhr.open("GET", "http://localhost:5000/get_values", true);
+            xhr.open("GET", document.URL + "get_values", true);
             xhr.send();
         }
         function get_ping() {
@@ -220,7 +253,7 @@
                    document.getElementById("ping_status").innerHTML = xhr.responseText;
                 }
             };
-            xhr.open("GET", "http://localhost:5000/ping", true);
+            xhr.open("GET",document.URL + "ping", true);
             xhr.send();
         }
         function rotate_pointer() {
@@ -234,6 +267,20 @@
             clearInterval(v1);
             clearInterval(v2);
             // document.getElementById("demo").innerHTML = "Hello World";
+        }
+        function retrieval() {
+            console.log("Retrieval button pressed");
+            document.getElementById("task_frame").src = document.URL + "retrieval";
+        }
+
+        function autonomous() {
+            console.log("Autonomous button pressed");
+            document.getElementById("task_frame").src = document.URL + "autonomous";
+        }
+
+        function science() {
+            console.log("Science button pressed");
+            document.getElementById("task_frame").src = document.URL + "science";
         }
 
         function initMap() {
@@ -287,7 +334,10 @@
             </div>
         </div>
 
-        <button onclick="kill()" class="btn">KILL</button>
+        <button onclick="kill()" class="kill-btn">KILL</button>
+        <button onclick="retrieval()" class="retrieval-btn">Extreme Retrieval Task</button>
+        <button onclick="science()" class="science-btn">Science Task</button>
+        <button onclick="autonomous()" class="autonomous-btn">Autonomous Task</button>
 
     </body>
 

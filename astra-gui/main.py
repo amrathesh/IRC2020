@@ -13,6 +13,18 @@ values = {'battery':battery_level,'compass':compass,'location':gps}
 @app.route("/")
 def admin_control():
 	return flask.render_template("admin_control.html")
+
+@app.route("/retrieval")
+def retrieval():
+	return flask.render_template("retrieval.html")
+
+@app.route("/autonomous")
+def autonomous():
+	return flask.render_template("autonomous.html")
+
+@app.route("/science")
+def science_task():
+	return flask.render_template("science_task.html")		
 	
 @app.route("/ping")
 def ping():
