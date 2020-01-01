@@ -153,6 +153,7 @@
             width: 60%;
             left: 23%;
             bottom: 10%;
+            border:none;
             }
 
         .kill-btn {
@@ -203,6 +204,15 @@
             top: 5%;
             z-index: 10;
         }
+        .module-btn {
+            border: none;
+            background-color: #ff0000;
+            color: white;
+            padding: 6px 22px;
+            font-size: 32px;
+            cursor: pointer;
+            position: absolute;
+        }
     </style>
 
 </head>
@@ -221,6 +231,13 @@
         <p>Network status : <br><span id = "ping_status"></span></p>
     </div>
 
+    <button onclick='module1()' id= "module1" style ="top:20%;right:2.5%;" class='module-btn'>Module 1</button>
+    <button onclick='module2()' id= "module2" style ="top:30%;right:2.5%;" class='module-btn'>Module 2</button>
+    <button onclick='module3()' id= "module3" style ="top:40%;right:2.5%;" class='module-btn'>Module 3</button>
+    <button onclick='module4()' id= "module4" style ="top:50%;right:2.5%;" class='module-btn'>Module 4</button>
+    <button onclick='module5()' id= "module5" style ="top:60%;right:2.5%;" class='module-btn'>Module 5</button>
+    <button onclick='module6()' id= "module6" style ="top:70%;right:2.5%;" class='module-btn'>Module 6</button>
+
     <iframe id="task_frame"></iframe>
 
     <script>
@@ -229,6 +246,7 @@
         var v1, v2, v3, v4, v5, v6, v7, v8,v9;
         var i = 0;
         var rovers = [];
+        var modules = [0,0,0,0,0,0];
 
         function extract_from_json() {
             var xhr = new XMLHttpRequest();
@@ -283,6 +301,77 @@
             document.getElementById("task_frame").src = document.URL + "science";
         }
 
+        function module1() {
+            console.log('1');
+            if(modules[0]===0){
+                modules[0] = 1;
+            }
+            else {
+                modules[0] = 0;
+            }
+        }
+
+        function module2() {
+            console.log('2');
+            if(modules[1]===0){
+                modules[1] = 1;
+            }
+            else {
+                modules[1] = 0;
+            }
+        }
+
+        function module3() {
+            console.log('3');
+            if(modules[2]===0){
+                modules[2] = 1;
+            }
+            else {
+                modules[2] = 0;
+            }
+        }
+
+        function module4() {
+            console.log('4');
+            if(modules[3]===0){
+                modules[3] = 1;
+            }
+            else {
+                modules[3] = 0;
+            }
+        }
+
+        function module5() {
+            console.log('5');
+            if(modules[4]===0){
+                modules[4] = 1;
+            }
+            else {
+                modules[4] = 0;
+            }
+        }
+
+        function module6() {
+            console.log('6');
+            if(modules[5]===0){
+                modules[5] = 1;
+            }
+            else {
+                modules[5] = 0;
+            }
+        }
+
+        function module_set() {
+            for(i=1;i<=6;i++) {
+                if(modules[i-1]===0) {
+                    document.getElementById('module'+ i.toString()).style.backgroundColor = "#ff0000";
+                }
+                else {
+                    document.getElementById('module'+ i.toString()).style.backgroundColor = "#00ff00";
+                }
+            }
+        }
+
         function initMap() {
             var ece_dept = {lat: 12.9238287, lng: 77.500057};
             var map = new google.maps.Map(document.getElementById('map'), {
@@ -311,6 +400,7 @@
         window.onload = function() {
             v1 = setInterval(rotate_pointer, 500);
             v2 = setInterval(extract_from_json, 500);
+            v3 = setInterval(module_set, 1);
             get_ping();
         }
     </script>

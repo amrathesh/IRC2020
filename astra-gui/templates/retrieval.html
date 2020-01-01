@@ -3,7 +3,206 @@
         <meta charset="utf-8">
         <title>Extreme Retrieval Task</title>
         <style>
+            #current {
+                position: absolute;
+                color: white;
+                bottom: 0%;
+                right: 0%;
+                font-family: sans-serif;
+                font-size: 75%;
+            }
 
+            #rover {
+                position: absolute;
+                top: 33%;
+                left: 35%;
+            }
+
+            .rover-wheel {
+                background-color: #ffffff96;
+                display: inline-block;
+                position: absolute;
+                /* font-weight: bold; */
+                font-family: monospace;
+                padding-top: 0.5%;
+                padding-bottom: 0.5%;
+            }
+
+            .rover-wheel-danger {
+                background-color: #d81b1b96;
+                display: inline-block;
+                position: absolute;
+                /* font-weight: bold; */feed2
+                font-family: monospace;
+                padding-top: 0.5%;
+                padding-bottom: 0.5%;
+            }
+
+            #front-right {
+                top: 68%;
+                left: 33%;
+            }
+
+            #middle-right {
+                top: 62%;
+                left: 41%;
+            }
+
+            #front-left {
+                top: 77%;
+                left: 50%;
+            }
+
+            #middle-left {
+                top: 71%;
+                left: 58%;
+            }
+
+            #back-right {
+                top: 64%;
+                right: 20%;
+            }
+
+            #back-left {
+                top: 56%;
+                right: 35%;
+            }
         </style>
     </head>
+    <body style="height: 100%; width: 100%; background-color: black; margin: 0">
+        <div id="rover">
+            <img id="rover-image" width="500" height="300" alt="static/images/rover.png" src="static/images/rover.png"/>
+        </div>
+<!--
+        <div id="rover-offline">
+            <img id="offline" style="height: 53%; width: 59%;" src="" alt="" />
+        </div>
+-->
+
+        <div class="rover-wheel" id="front-right">
+            &nbsp; CURRENT: <span id="wheel1-current" style="font-weight: bold">1.8</span> A&nbsp;
+        </div>
+
+        <div class="rover-wheel" id="middle-right">
+            &nbsp; CURRENT: <span id="wheel2-current" style="font-weight: bold">1.9 </span> A&nbsp;
+        </div>
+
+        <div class="rover-wheel" id="front-left">
+            &nbsp; CURRENT: <span id="wheel3-current" style="font-weight: bold">1.9</span> A&nbsp;
+        </div>
+
+        <div class="rover-wheel" id="middle-left">
+            &nbsp; CURRENT: <span id="wheel4-current" style="font-weight: bold">1.8</span> A&nbsp;
+        </div>
+
+        <div class="rover-wheel" id="back-right">
+            &nbsp; CURRENT: <span id="wheel5-current" style="font-weight: bold">1.8</span> A&nbsp;
+        </div>
+
+        <div class="rover-wheel" id="back-left">
+            &nbsp; CURRENT: <span id="wheel6-current" style="font-weight: bold">1.9 </span> A&nbsp;
+        </div>
+        <script>
+            var w1current = 4.5;
+            var w2current = 4.9;
+            var w3current = 4.8;
+            var w4current = 4.2;
+            var w5current = 4.6;
+            var w6current = 4.7;
+            var v1,v2,v3,v4,v5,v6;
+
+            function setWheel1Current() {
+                var min = 4.1;
+                var max = 5.6;
+                w1current = (Math.random() * (max - min) + min).toFixed(2);
+                document.getElementById("wheel1-current").innerHTML = w1current;
+                if (Number(w1current) > 5.5) {
+                    document.getElementById("front-right").style.backgroundColor = "#d81b1b96";
+                } else if (Number(w1current) >= 5.4 && Number(w1current) < 5.5) {
+                    document.getElementById("front-right").style.backgroundColor = "#c1b31e96";
+                } else {
+                    document.getElementById("front-right").style.backgroundColor = "#ffffff96";
+                }
+            }
+
+            function setWheel2Current() {
+                var min = 4.1;
+                var max = 5.6;
+                w2current = (Math.random() * (max - min) + min).toFixed(2);
+                document.getElementById("wheel2-current").innerHTML = w2current;
+                if (Number(w2current) > 5.5) {
+                    document.getElementById("middle-right").style.backgroundColor = "#d81b1b96";
+                } else if (Number(w2current) >= 5.4 && Number(w2current) < 5.5) {
+                    document.getElementById("middle-right").style.backgroundColor = "#c1b31e96";
+                } else {
+                    document.getElementById("middle-right").style.backgroundColor = "#ffffff96";
+                }
+            }
+
+            function setWheel3Current() {
+                var min = 4.1;
+                var max = 5.6;
+                w3current = (Math.random() * (max - min) + min).toFixed(2);
+                document.getElementById("wheel3-current").innerHTML = w3current;
+                if (Number(w3current) > 5.5) {
+                    document.getElementById("front-left").style.backgroundColor = "#d81b1b96";
+                } else if (Number(w3current) >= 5.4 && Number(w3current) < 5.5) {
+                    document.getElementById("front-left").style.backgroundColor = "#c1b31e96";
+                } else {
+                    document.getElementById("front-left").style.backgroundColor = "#ffffff96";
+                }
+            }
+
+            function setWheel4Current() {
+                var min = 4.1;
+                var max = 5.6;
+                w4current = (Math.random() * (max - min) + min).toFixed(2);
+                document.getElementById("wheel4-current").innerHTML = w4current;
+                if (Number(w4current) > 5.5) {
+                    document.getElementById("middle-left").style.backgroundColor = "#d81b1b96";
+                } else if (Number(w4current) >= 5.4 && Number(w4current) < 5.5) {
+                    document.getElementById("middle-left").style.backgroundColor = "#c1b31e96";
+                } else {
+                    document.getElementById("middle-left").style.backgroundColor = "#ffffff96";
+                }
+            }
+
+            function setWheel5Current() {
+                var min = 4.1;
+                var max = 5.6;
+                w5current = (Math.random() * (max - min) + min).toFixed(2);
+                document.getElementById("wheel5-current").innerHTML = w5current;
+                if (Number(w5current) > 5.5) {
+                    document.getElementById("back-right").style.backgroundColor = "#d81b1b96";
+                } else if (Number(w5current) >= 5.4 && Number(w5current) < 5.5) {
+                    document.getElementById("back-right").style.backgroundColor = "#c1b31e96";
+                } else {
+                    document.getElementById("back-right").style.backgroundColor = "#ffffff96";
+                }
+            }
+
+            function setWheel6Current() {
+                var min = 4.1;
+                var max = 5.6;
+                w6current = (Math.random() * (max - min) + min).toFixed(2);
+                document.getElementById("wheel6-current").innerHTML = w6current;
+                if (Number(w6current) > 5.5) {
+                    document.getElementById("back-left").style.backgroundColor = "#d81b1b96";
+                } else if (Number(w6current) >= 5.4 && Number(w6current) < 5.5) {
+                    document.getElementById("back-left").style.backgroundColor = "#c1b31e96";
+                } else {
+                    document.getElementById("back-left").style.backgroundColor = "#ffffff96";
+                }
+            }
+
+            window.onload = function() {
+                v1 = setInterval(setWheel1Current, 1500);
+                v2 = setInterval(setWheel2Current, 1500);
+                v3 = setInterval(setWheel3Current, 1500);
+                v4 = setInterval(setWheel4Current, 1500);
+                v5 = setInterval(setWheel5Current, 1500);
+                v6 = setInterval(setWheel6Current, 1500);
+            }
+        </script>
+    </body>
 </html>
