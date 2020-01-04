@@ -15,5 +15,5 @@ while(1):
 	data = {"battery":battery,"compass":compass,"location":{"lat":latitude,"long":longitude}}
 	print(f"Battery: {battery}\nCompass: {compass}\n")
 	string_data = json.dumps(data)
-	r = requests.get("http://"+sys.argv[1]+":5000/set_values?json="+string_data)
+	r = requests.get("http://localhost:5000/set_values?json="+string_data)
 			

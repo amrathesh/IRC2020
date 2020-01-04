@@ -38,10 +38,10 @@
             <p>Soil Humidity<br><span id = "soil_humidity" style="font-size: 225%; font-weight: bolder; "></p>
         </div>
 
-        <div id="text" style="left:79.5%;top:46%;font-size:125%;font-weight: bolder;">
-            <p>Amount of gas in ppm</p>
+        <div id="text" style="left:79%;top:46%;font-size:125%;text-align:center;">
+            <p>Atmospheric Gas Analysis(CO2,CH4,CO)<br><span id="gases" style="font-size: 225%;font-weight: bolder;"></p>
         </div>
-
+<!--
         <div id="text" style="left:86%;top:53%;text-align: center;">
             <p>Carbon<br>Monoxide<br><span id = "carbon_monoxide" style="font-size: 225%; font-weight: bolder; "></p>
         </div>
@@ -53,8 +53,12 @@
         <div id="text" style="left:80%;top:53%;text-align: center;">
             <p>Methane<br><br><span id = "methane" style="font-size: 225%; font-weight: bolder; "></p>
         </div>
+-->
+        <div id="text" style="left:84%;top:68%;font-size:125%;font-weight: bolder;">
+            <p>Soil Analysis</p>
+        </div>
 
-        <div id="text" style="left:87%;top:68%;font-size:125%;font-weight: bolder;">
+        <div id="text" style="left:75%;top:75%;text-align: center;font-size:125%;font-weight: bolder;">
             <p>pH</p>
         </div>
 
@@ -70,4 +74,31 @@
             <p>Phosphor<br><span id = "phosphor" style="font-size: 225%; font-weight: bolder;"></p>
         </div>
 
+        <script>
+            var v1;
+            function extract_from_json() {
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                       // Typical action to be performed when the document is ready:
+                       var data = JSON.parse(xhr.responseText);
+                       document.getElementById('atmospheric_pressure').innerHTML = data['atmospheric_pressure'].toString();
+                       document.getElementById('air_temperature').innerHTML = data['air_temperature'].toString();
+                       document.getElementById('air_humidity').innerHTML = data['air_humidity'].toString();
+                       document.getElementById('soil_temperature').innerHTML = data['soil_temperature'].toString();
+                       document.getElementById('soil_humidity').innerHTML = data['soil_humidity'].toString();
+                       document.getElementById('gases').innerHTML = data['gases'].toString();
+                       document.getElementById('nitrogen').innerHTML = data['nitrogen'].toString();
+                       document.getElementById('potassium').innerHTML = data['potassium'].toString();
+                       document.getElementById('phosphor').innerHTML = data['phosphor'].toString();
+                    }
+                };
+                xhr.open("GET", document.URL + "/get_science", true);
+                xhr.send();
+            }
+            window.onload = function() {
+                v1 = setInterval(extract_from_json,500)
+            }
+        </script>
+    </body>
 </html>
