@@ -74,6 +74,9 @@
             <p>Phosphor<br><span id = "phosphor" style="font-size: 225%; font-weight: bolder;"></p>
         </div>
 
+        <button onclick= "image_stitch" id="stitch" style="left:40%;top:10%;">Panorama of 3 cameras</button>
+
+
         <script>
             var v1;
             function extract_from_json() {
@@ -95,6 +98,10 @@
                 };
                 xhr.open("GET", document.URL + "/get_science", true);
                 xhr.send();
+            }
+
+            function image_stitch() {
+                window.open(document.URL + "image_stitch",_self);
             }
             window.onload = function() {
                 v1 = setInterval(extract_from_json,500)

@@ -156,7 +156,7 @@
             border:none;
             }
 
-        .kill-btn {
+        .power-btn {
             border: 6px solid #e21919;
             background-color: #e219196b;
             color: white;
@@ -222,39 +222,41 @@
     <div style="position: absolute; left: 1%; top: 2%;">
         <img style="width: 30%;" src="{{ url_for('static', filename='images/astra-logo.png') }}" />
     </div>
-
+<!--
     <div id="battery">
         <p>BATTERY <br><span id ="battery_status" style="font-size: 225%; font-weight: bolder;"></span></p>
     </div>
-
+-->
     <div id="ping">
         <p>Network status : <br><span id = "ping_status"></span></p>
     </div>
-
+<!--
     <button onclick='module1()' id= "module1" style ="top:20%;right:2.5%;" class='module-btn'>Module 1</button>
     <button onclick='module2()' id= "module2" style ="top:30%;right:2.5%;" class='module-btn'>Module 2</button>
     <button onclick='module3()' id= "module3" style ="top:40%;right:2.5%;" class='module-btn'>Module 3</button>
     <button onclick='module4()' id= "module4" style ="top:50%;right:2.5%;" class='module-btn'>Module 4</button>
     <button onclick='module5()' id= "module5" style ="top:60%;right:2.5%;" class='module-btn'>Module 5</button>
     <button onclick='module6()' id= "module6" style ="top:70%;right:2.5%;" class='module-btn'>Module 6</button>
-
+-->
     <iframe id="task_frame"></iframe>
 
     <script>
-        var battery,angle=180;
+        var angle=180;
+        //var battery;
         var gps = {lat: 12.9238287, lng: 77.500057};
         var v1, v2, v3, v4, v5, v6, v7, v8,v9;
         var i = 0;
         var rovers = [];
-        var modules = [0,0,0,0,0,0];
-
+        power = 0;
+        var data = {'power':power};
+        //var modules = [0,0,0,0,0,0];
         function extract_from_json() {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                    // Typical action to be performed when the document is ready:
                    var data = JSON.parse(xhr.responseText);
-                   document.getElementById("battery_status").innerHTML = data["battery"].toString() + "%";
+                   //document.getElementById("battery_status").innerHTML = data["battery"].toString() + "%";
                    angle = (data["compass"]+10).toString();
                    gps.lat = data['location']['lat'];
                    gps.lng = data['location']['long'];
@@ -278,13 +280,31 @@
             document.getElementById("pointer").style.transform = "rotate(" + angle + "deg)";
         }
 
-        function kill() {
-            console.log("kill button pressed");
-            document.getElementById("pointer").style.transform = "rotate(0deg)";
+        function send_values() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    data = {'power':power};
+                }
+            };
+            xhr.open("POST", document.URL + "send_values", true);
+            xhr.send(JSON.stringify(data));
+        }
 
-            clearInterval(v1);
-            clearInterval(v2);
-            // document.getElementById("demo").innerHTML = "Hello World";
+        function turnonoff() {
+            console.log("Power button pressed");
+            if(power===0){
+                power = 1;
+                document.getElementById("power").style.backgroundColor = "#113a0c";
+                document.getElementById("power").style.border = "6px solid #19b325";
+                document.getElementById("power").innerHTML = "ON";
+            }
+            else {
+                power = 0;
+                document.getElementById("power").style.backgroundColor = "#e219196b";
+                document.getElementById("power").style.border = "6px solid #e21919";
+                document.getElementById("power").innerHTML = "OFF";
+            }
         }
         function retrieval() {
             console.log("Retrieval button pressed");
@@ -300,7 +320,7 @@
             console.log("Science button pressed");
             document.getElementById("task_frame").src = document.URL + "science";
         }
-
+/*
         function module1() {
             console.log('1');
             if(modules[0]===0){
@@ -371,7 +391,7 @@
                 }
             }
         }
-
+*/
         function initMap() {
             var ece_dept = {lat: 12.9238287, lng: 77.500057};
             var map = new google.maps.Map(document.getElementById('map'), {
@@ -400,12 +420,15 @@
         window.onload = function() {
             v1 = setInterval(rotate_pointer, 500);
             v2 = setInterval(extract_from_json, 500);
-            v3 = setInterval(module_set, 1);
+            v3 = setInterval(send_values, 500);
+            //v3 = setInterval(module_set, 1);
             get_ping();
         }
     </script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQsR1zOLocQt1cpp0gpB7MbNCpWLQVpC8&callback=initMap" async defer></script>
+
+
 
         <div id="map"></div>
 
@@ -424,7 +447,7 @@
             </div>
         </div>
 
-        <button onclick="kill()" class="kill-btn">KILL</button>
+        <button onclick="turnonoff()" id="power" class="power-btn">OFF</button>
         <button onclick="retrieval()" class="retrieval-btn">Extreme Retrieval Task</button>
         <button onclick="science()" class="science-btn">Science Task</button>
         <button onclick="autonomous()" class="autonomous-btn">Autonomous Task</button>

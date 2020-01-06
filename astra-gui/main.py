@@ -3,11 +3,11 @@ from flask import request, jsonify
 import json
 import os
 import sys
-
+import requests
 
 app = flask.Flask(__name__)
 gps = {"lat": None,"long":None}
-values = {'battery':100,'compass':-180,'location':gps}
+values = {'compass':-180,'location':gps}
 science = {'atmospheric_pressure':None,
 'air_temperature':None,
 'air_humidity':None,
@@ -18,7 +18,9 @@ science = {'atmospheric_pressure':None,
 'potassium':None,
 'nitrogen':None}
 retrieval = {'CFL':None,'CFR':None,'CML':None,'CMR':None,'CBL':None,'CBR':None}
-
+power = None 
+string_data = ""
+ip = "localhost"
 @app.route("/")
 def admin_control():
 	return flask.render_template("admin_control.html")
@@ -71,6 +73,15 @@ def get_retrieval():
     global retrieval
     return jsonify(retrieval)
             	
+@app.route("/science/image_stitch")
+def image_stitch():
+    print("Input locations of three images\n")
+    image1 = str(input())
+    image2 = str(input())
+    image3 = str(input())
+    os.system(f"python3 image_stitch.py {image1} {image2} {image3}")
+    return "1"
+            	
 @app.route("/set_values")
 def set_values():
     global values
@@ -84,7 +95,16 @@ def set_values():
 def get_values():
     global values
     return jsonify(values)
+    
+@app.route("/send_values", methods=['GET','POST'])
+def send_values():
+    global power
+    global string_data
+    if request.method == "POST":
+        global string_data
+        string_data = request.data
+        data = json.loads(string_data)
+    return string_data
 	
-
 if __name__ == "__main__":
-    app.run(host = 'localhost', debug=True)
+    app.run(host = ip, debug=True)

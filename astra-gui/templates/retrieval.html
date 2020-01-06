@@ -123,97 +123,7 @@
         </div>
 -->
         <script>
-            var w1current = 4.5;
-            var w2current = 4.9;
-            var w3current = 4.8;
-            var w4current = 4.2;
-            var w5current = 4.6;
-            var w6current = 4.7;
-            var v1,v2,v3,v4,v5,v6,v7;
-
-            function setWheel1Current() {
-                var min = 4.1;
-                var max = 5.6;
-                w1current = (Math.random() * (max - min) + min).toFixed(2);
-                document.getElementById("CFR").innerHTML = w1current;
-                if (Number(w1current) > 5.5) {
-                    document.getElementById("front-right").style.backgroundColor = "#d81b1b96";
-                } else if (Number(w1current) >= 5.4 && Number(w1current) < 5.5) {
-                    document.getElementById("front-right").style.backgroundColor = "#c1b31e96";
-                } else {
-                    document.getElementById("front-right").style.backgroundColor = "#ffffff96";
-                }
-            }
-
-            function setWheel2Current() {
-                var min = 4.1;
-                var max = 5.6;
-                w2current = (Math.random() * (max - min) + min).toFixed(2);
-                document.getElementById("CMR").innerHTML = w2current;
-                if (Number(w2current) > 5.5) {
-                    document.getElementById("middle-right").style.backgroundColor = "#d81b1b96";
-                } else if (Number(w2current) >= 5.4 && Number(w2current) < 5.5) {
-                    document.getElementById("middle-right").style.backgroundColor = "#c1b31e96";
-                } else {
-                    document.getElementById("middle-right").style.backgroundColor = "#ffffff96";
-                }
-            }
-
-            function setWheel3Current() {
-                var min = 4.1;
-                var max = 5.6;
-                w3current = (Math.random() * (max - min) + min).toFixed(2);
-                document.getElementById("CFL").innerHTML = w3current;
-                if (Number(w3current) > 5.5) {
-                    document.getElementById("front-left").style.backgroundColor = "#d81b1b96";
-                } else if (Number(w3current) >= 5.4 && Number(w3current) < 5.5) {
-                    document.getElementById("front-left").style.backgroundColor = "#c1b31e96";
-                } else {
-                    document.getElementById("front-left").style.backgroundColor = "#ffffff96";
-                }
-            }
-
-            function setWheel4Current() {
-                var min = 4.1;
-                var max = 5.6;
-                w4current = (Math.random() * (max - min) + min).toFixed(2);
-                document.getElementById("CML").innerHTML = w4current;
-                if (Number(w4current) > 5.5) {
-                    document.getElementById("middle-left").style.backgroundColor = "#d81b1b96";
-                } else if (Number(w4current) >= 5.4 && Number(w4current) < 5.5) {
-                    document.getElementById("middle-left").style.backgroundColor = "#c1b31e96";
-                } else {
-                    document.getElementById("middle-left").style.backgroundColor = "#ffffff96";
-                }
-            }
-
-            function setWheel5Current() {
-                var min = 4.1;
-                var max = 5.6;
-                w5current = (Math.random() * (max - min) + min).toFixed(2);
-                document.getElementById("CBR").innerHTML = w5current;
-                if (Number(w5current) > 5.5) {
-                    document.getElementById("back-right").style.backgroundColor = "#d81b1b96";
-                } else if (Number(w5current) >= 5.4 && Number(w5current) < 5.5) {
-                    document.getElementById("back-right").style.backgroundColor = "#c1b31e96";
-                } else {
-                    document.getElementById("back-right").style.backgroundColor = "#ffffff96";
-                }
-            }
-
-            function setWheel6Current() {
-                var min = 4.1;
-                var max = 5.6;
-                w6current = (Math.random() * (max - min) + min).toFixed(2);
-                document.getElementById("CBL").innerHTML = w6current;
-                if (Number(w6current) > 5.5) {
-                    document.getElementById("back-left").style.backgroundColor = "#d81b1b96";
-                } else if (Number(w6current) >= 5.4 && Number(w6current) < 5.5) {
-                    document.getElementById("back-left").style.backgroundColor = "#c1b31e96";
-                } else {
-                    document.getElementById("back-left").style.backgroundColor = "#ffffff96";
-                }
-            }
+            var v1;
 
             function extract_from_json() {
                 var xhr = new XMLHttpRequest();
@@ -234,13 +144,7 @@
             }
 
             window.onload = function() {
-            /*    v1 = setInterval(setWheel1Current, 1500);
-                v2 = setInterval(setWheel2Current, 1500);
-                v3 = setInterval(setWheel3Current, 1500);
-                v4 = setInterval(setWheel4Current, 1500);
-                v5 = setInterval(setWheel5Current, 1500);
-                v6 = setInterval(setWheel6Current, 1500); */
-                v7 = setInterval(extract_from_json, 500);
+                v1 = setInterval(extract_from_json, 500);
             }
         </script>
     </body>
