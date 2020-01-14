@@ -111,7 +111,7 @@
         <div class="rover-wheel" id="back-left">
             &nbsp; CURRENT: <span id="CBL" style="font-weight: bold">1.9 </span> A&nbsp;
         </div>
-<!--
+
         <div class="table" style="position: absolute; left: 10%; top: 30%;" >
             <table id="task_coordinates" >
                 <tr>
@@ -121,10 +121,20 @@
                 </tr>
             </table>
         </div>
--->
+
+        <div style="position:absolute;left:10%;top:5%;">
+            <form action= "/retrieval/send_coordinates/" method="post">
+                First name:<br>
+                <input type="text" name="latitude"><br>
+                Last name:<br>
+                <input type="text" name="longitude"><br><br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+
         <script>
             var v1;
-
+            var serial = 0;
             function extract_from_json() {
                 var xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function() {

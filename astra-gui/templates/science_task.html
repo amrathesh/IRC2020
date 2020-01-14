@@ -37,48 +37,60 @@
         <div id="text" style="left:90.75%;top:33%;text-align: center;">
             <p>Soil Humidity<br><span id = "soil_humidity" style="font-size: 225%; font-weight: bolder; "></p>
         </div>
-
+<!--
         <div id="text" style="left:79%;top:46%;font-size:125%;text-align:center;">
             <p>Atmospheric Gas Analysis(CO2,CH4,CO)<br><span id="gases" style="font-size: 225%;font-weight: bolder;"></p>
         </div>
-<!--
-        <div id="text" style="left:86%;top:53%;text-align: center;">
-            <p>Carbon<br>Monoxide<br><span id = "carbon_monoxide" style="font-size: 225%; font-weight: bolder; "></p>
-        </div>
-
-        <div id="text" style="left:93%;top:53%;text-align: center;">
-            <p>Carbon<br>Dioxide<br><span id = "carbon_dioxide" style="font-size: 225%; font-weight: bolder; "></p>
-        </div>
-
-        <div id="text" style="left:80%;top:53%;text-align: center;">
-            <p>Methane<br><br><span id = "methane" style="font-size: 225%; font-weight: bolder; "></p>
-        </div>
 -->
-        <div id="text" style="left:84%;top:68%;font-size:125%;font-weight: bolder;">
+        <div id="text" style="left:86%;top:48%;text-align: center;">
+            <p>Carbon<br>Monoxide<br><span id = "CO" style="font-size: 225%; font-weight: bolder; "></p>
+        </div>
+
+        <div id="text" style="left:93%;top:48%;text-align: center;">
+            <p>Carbon<br>Dioxide<br><span id = "CO2" style="font-size: 225%; font-weight: bolder; "></p>
+        </div>
+
+        <div id="text" style="left:80%;top:48%;text-align: center;">
+            <p>Methane<br><br><span id = "CH4" style="font-size: 225%; font-weight: bolder; "></p>
+        </div>
+
+        <div id="text" style="left:84%;top:64%;font-size:125%;font-weight: bolder;">
             <p>Soil Analysis</p>
         </div>
 
-        <div id="text" style="left:75%;top:75%;text-align: center;font-size:125%;font-weight: bolder;">
+        <div id="text" style="left:75%;top:71%;text-align: center;font-size:125%;font-weight: bolder;">
             <p>pH</p>
         </div>
 
-        <div id="text" style="left:94%;top:76%;text-align: center;">
+        <div id="text" style="left:94%;top:72%;text-align: center;">
             <p>Nitrogen<br><span id = "nitrogen" style="font-size: 225%; font-weight: bolder;"></p>
         </div>
 
-        <div id="text" style="left:87%;top:76%;text-align: center;">
+        <div id="text" style="left:87%;top:72%;text-align: center;">
             <p>Potassium<br><span id = "potassium" style="font-size: 225%; font-weight: bolder;"></p>
         </div>
 
-        <div id="text" style="left:80%;top:76%;text-align: center;">
+        <div id="text" style="left:80%;top:72%;text-align: center;">
             <p>Phosphor<br><span id = "phosphor" style="font-size: 225%; font-weight: bolder;"></p>
+        </div>
+
+        <div id="text" style="left:86%;top:85%;text-align: center;">
+            <p>Elevation<br><span id = "elevation" style="font-size: 225%; font-weight: bolder;"></p>
+        </div>
+
+        <div id="text" style="left:20%;top:80%;font-size:125%;">
+            <p>Result<br><span id = "result" style="font-size: 150%; font-weight: bolder;"></p>
         </div>
 
         <button onclick= "image_stitch" id="stitch" style="left:40%;top:10%;">Panorama of 3 cameras</button>
 
 
         <script>
-            var v1;
+            var v1,v2;
+            var co,co2,ch4;
+            co = 4;
+            co2 = 3;
+            ch4 = 2;
             function extract_from_json() {
                 var xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function() {
@@ -90,21 +102,39 @@
                        document.getElementById('air_humidity').innerHTML = data['air_humidity'].toString();
                        document.getElementById('soil_temperature').innerHTML = data['soil_temperature'].toString();
                        document.getElementById('soil_humidity').innerHTML = data['soil_humidity'].toString();
-                       document.getElementById('gases').innerHTML = data['gases'].toString();
+                       //document.getElementById('gases').innerHTML = data['gases'].toString();
+                       document.getElementById('CO').innerHTML = data['CO'].toString();
+                       document.getElementById('CO2').innerHTML = data['CO2'].toString();
+                       document.getElementById('CH4').innerHTML = data['CH4'].toString();
                        document.getElementById('nitrogen').innerHTML = data['nitrogen'].toString();
                        document.getElementById('potassium').innerHTML = data['potassium'].toString();
                        document.getElementById('phosphor').innerHTML = data['phosphor'].toString();
+                       document.getElementById('pH').innerHTML = data['pH'].toString();
+                       document.getElementById('elevation').innerHTML = data['elevation'].toString();
+                       co = data['CO'];
+                       co2 = data['CO2'];
+                       ch4 = data['CH4'];
                     }
                 };
                 xhr.open("GET", document.URL + "/get_science", true);
                 xhr.send();
             }
-
+            function result() {
+                if(co2>ch4 && co2<co){
+                    document.getElementById('result').innerHTML = "Bio signature exists";
+                    document.getElementById('result').style.color = "#19b325";
+                }
+                else{
+                    document.getElementById('result').innerHTML = "Bio signature does not exist";
+                    document.getElementById('result').style.color = "#e21919";
+                }
+            }
             function image_stitch() {
                 window.open(document.URL + "image_stitch",_self);
             }
             window.onload = function() {
-                v1 = setInterval(extract_from_json,500)
+                v1 = setInterval(extract_from_json,500);
+                v2 = setInterval(result,500);
             }
         </script>
     </body>

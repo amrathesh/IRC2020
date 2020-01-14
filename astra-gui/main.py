@@ -13,11 +13,17 @@ science = {'atmospheric_pressure':None,
 'air_humidity':None,
 'soil_temperature':None,
 'soil_humidity':None,
-'gases':None,
+#'gases':None,
+'CO2':None,
+'CO':None,
+'CH4':None,
 'phosphor':None,
 'potassium':None,
-'nitrogen':None}
+'nitrogen':None,
+'pH':None,
+'elevation':None}
 retrieval = {'CFL':None,'CFR':None,'CML':None,'CMR':None,'CBL':None,'CBR':None}
+coordinates = {"latitude":[],"longitude":[]}
 power = None 
 string_data = ""
 ip = "localhost"
@@ -58,6 +64,15 @@ def set_science():
 def get_science():
     global science
     return jsonify(science)
+         	
+@app.route("/science/image_stitch")
+def image_stitch():
+    print("Input locations of three images\n")
+    image1 = str(input())
+    image2 = str(input())
+    image3 = str(input())
+    os.system(f"python3 image_stitch.py {image1} {image2} {image3}")
+    return "1"    
 
 @app.route("/retrieval/set_retrieval")
 def set_retrieval():
@@ -72,15 +87,13 @@ def set_retrieval():
 def get_retrieval():
     global retrieval
     return jsonify(retrieval)
-            	
-@app.route("/science/image_stitch")
-def image_stitch():
-    print("Input locations of three images\n")
-    image1 = str(input())
-    image2 = str(input())
-    image3 = str(input())
-    os.system(f"python3 image_stitch.py {image1} {image2} {image3}")
-    return "1"
+
+@app.route("/retrieval/send_coordinates")
+def send_coordinates():
+    global coordinates
+    #string = request.data
+    #print(request.data)
+    return ""
             	
 @app.route("/set_values")
 def set_values():
