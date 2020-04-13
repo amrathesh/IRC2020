@@ -1,6 +1,11 @@
 # IRC2020
 The official repository of Team Astra Robotics for IRC 2020
-## Instructions
+
+## Getting around the repository
+
+Files pertaining to various tasks in IRC 2020 as well as subsystems in them have been pushed onto the repository for backup and development purposes. Kindly use them and add anymore developments if found. Each folder has a self-explanatory name along with a README file which explains what each code is. Please read them for better understanding of the codes written.
+
+## Instructions for using repository
 Seeing that a new repo has been made to put resources onto, doubts might originate on how to go about putting the resources in the right way and also how to access them uniformly. Fret not, for the readme file will explain it as satisfactorily as possible 
 
 >The following commands have been tried and tested on Linux Operating Systems to be working correctly. Execute these as required on terminal or command prompt on your OS after downloading and successfully installing Git. 
