@@ -1,8 +1,8 @@
-#Astra GUI
+# Astra GUI
 
 This is the web application which runs on a flask server to enable a smoother monitoring of the rover as the tasks are performed. 
 
-##Getting around
+##  Getting around
 
 - templates folder contains the various HTML files that are used and run accordingly. 
 - static folder contains the images, videos used. 
