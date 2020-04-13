@@ -97,7 +97,7 @@ Rocket M5 is the device which helps to communicate between the rover and the bas
 3.	From rover station pc, ping base station rocket m5 and base station pc (192.168.1.21 and 192.168.1.22)
 
 4.	Check the IPs in wireless network watcher too on both rover pc and base station pc. (all 4 IPs should be displayed)
-    >when we did, 192.168.1.31 was displayed and the same changed to 192.168.1.32 – this wasn’t a problem since ping worked.
+    >When we did, 192.168.1.31 was displayed and the same changed to 192.168.1.32 – this wasn’t a problem since ping worked.
     
 
 #### Verification
